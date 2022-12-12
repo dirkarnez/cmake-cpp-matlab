@@ -33,5 +33,14 @@ rem -DCPK_ACTION_TARGET="%2" ^
 rem -B./build &&^
 rem rmdir /s /q build &&^
 rem echo done &&
-mcc -W cpplib:addition -d matlab-build addition.m
-pause 
+rem mcc -W cpplib:addition -T link:lib -d matlab-build addition.m
+
+REM -DCMAKE_BUILD_TYPE=Debug ^
+
+cmake -G "Visual Studio 16 2019" -A x64 ^
+-DMATLAB_BUILD_ROOT="%CD_LINUX%/matlab-build" ^
+-B./cmake-build &&^
+cd cmake-build &&^
+cmake --build . &&^
+echo "Successful build"
+pause
